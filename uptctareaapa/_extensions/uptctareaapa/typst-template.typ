@@ -312,6 +312,10 @@
     show figure: it => [#configurar_figuras(config: config, it)]
 
     doc
+
+    // Bibliografía
+    set par(justify: false, first-line-indent: 0cm)
+    bibliography("bib/bibliografia.bib", full: true, style: "american-psychological-association")
   }
 }
 
