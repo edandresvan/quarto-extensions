@@ -277,7 +277,7 @@
   }
 }
 
-#let posteriores(doc) = {
+#let posteriores(bibliography-file: none, doc) = {
   {
     set page(
       paper: config.page.paper,
@@ -314,8 +314,10 @@
     doc
 
     // Bibliografía
-    set par(justify: false, first-line-indent: 0cm)
-    bibliography("bib/bibliografia.bib", full: true, style: "american-psychological-association")
+    if bibliography-file != none {
+      set par(justify: false, first-line-indent: 0cm)
+      bibliography(bibliography-file, full: true, style: "american-psychological-association")
+    }
   }
 }
 

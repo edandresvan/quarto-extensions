@@ -16,8 +16,6 @@ $body$
 
 $notes.typ()$
 
-//$biblio.typ()$
-
 $for(include-after)$
 $include-after$
 $endfor$
