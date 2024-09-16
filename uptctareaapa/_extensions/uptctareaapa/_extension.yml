@@ -10,8 +10,7 @@ contributes:
         - typst-template.typ
         - typst-show.typ
       # format-resources:
-      #   - config.typ 
-      #   - figuras/logo-uptc.png
+        - figuras/logo-uptc.png
       # include-before-body: 
       #   file: partials/_portada.typ 
 
