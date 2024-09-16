@@ -17,7 +17,7 @@ region: ES
 ---
 
 ```{=typst} 
-#show: doc => preliminares(doc)
+#show: doc => preliminares(toc: true, doc)
 ```
 
 {{< include qmd/introduccion.qmd >}}
@@ -30,7 +30,6 @@ region: ES
 
 
 ```{=typst} 
-#let bibliography-file = "references.bib"
 #show: doc => posteriores(bibliography-file: "references.bib", doc)
 ```
 

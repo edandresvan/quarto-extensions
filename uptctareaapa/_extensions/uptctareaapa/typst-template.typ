@@ -193,7 +193,7 @@
   text(organization.subject)
 
   v(3cm)
-  image("figuras/logo-uptc.png", width: 26%)
+  image("logo-uptc.png", width: 26%)
 
   v(0.5cm)
   text(organization.university)
@@ -212,7 +212,7 @@
   v(0.1cm)
 }
 
-#let preliminares(doc) = {
+#let preliminares(toc: true, doc) = {
   // Configurar Página
   set page(
     paper: config.page.paper,
@@ -228,32 +228,36 @@
   // Configurar figuras
   show figure: it => [#configurar_figuras(config: config, it)]
 
-  // Mostrar Tabla de Contenido  
-  heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Contenido")
-  outline(
-    title: "",
-    indent: 2em
-  )
-  pagebreak()
-  
-  // Mostrar Lista de Figuras 
-  locate(loc => {
-    if query(figure.where(kind: image), loc).len() > 0 {
-      heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Lista de Figuras")
-      outline(title:"", target: figure.where(kind: image),)
-      pagebreak()
-    }
-  })
+  // Mostrar las tablas de contenidos
+  if toc == true {
 
-  // Mostrar Lista de Tablas 
-  locate(loc => {
-    if query(figure.where(kind: table), loc).len() > 0 {
-      heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Lista de Tablas")
-      outline(title:"", target: figure.where(kind: table),)
-      pagebreak()
-    }
-  })
+    // Mostrar Tabla de Contenido  
+    heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Contenido")
+    outline(
+      title: "",
+      indent: 2em
+    )
+    pagebreak()
+    
+    // Mostrar Lista de Figuras 
+    locate(loc => {
+      if query(figure.where(kind: image), loc).len() > 0 {
+        heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Lista de Figuras")
+        outline(title:"", target: figure.where(kind: image),)
+        pagebreak()
+      }
+    })
 
+    // Mostrar Lista de Tablas 
+    locate(loc => {
+      if query(figure.where(kind: table), loc).len() > 0 {
+        heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Lista de Tablas")
+        outline(title:"", target: figure.where(kind: table),)
+        pagebreak()
+      }
+    })
+
+  }
 
   doc
 }
@@ -423,3 +427,4 @@
 //   inset: 6pt,
 //   stroke: none
 // )
+
