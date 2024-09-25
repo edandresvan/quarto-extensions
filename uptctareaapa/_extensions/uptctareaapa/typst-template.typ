@@ -24,7 +24,7 @@
   fonts: (
     sans_serif: "IBM Plex Sans",
     serif: "Schibsted Grotesk",
-    mono: "",
+    mono: "Hack",
     math: "",
     headings: "IBM Plex Sans",
     body: "IBM Plex Sans",
@@ -70,7 +70,11 @@
 }
 
 #let configurar_figuras(config: none, figura) = {
-  show figure: set block(breakable: false, width: 100%, spacing: config.paragraph.line_spacing)
+  show figure: set block(breakable: true, width: 100%, spacing: config.paragraph.line_spacing)
+
+  show figure.where(
+    kind: image
+  ): set block(breakable: false) 
 
   show figure.caption: it => {
     set align(left)
@@ -81,15 +85,41 @@
   }
   
   show figure: set figure.caption(position: top)
-  // show figure: it => {
-  //   set placement(top)
-  // }
   set image(fit: "contain")
 
-  figura.caption 
-  align(center, figura.body)
+  if figura.kind == "quarto-float-fig" {
+    align(center + top, block(breakable: false, width: 100%, spacing: config.paragraph.line_spacing, [#figura.caption #figura.body ]))
+  } else {
+    align(center + top, figura.caption + figura.body)
+  }
+  
 }
 
+#let configurar_tablas_base(config: none, tabla) = {
+
+  //set table(align:left)
+
+  show table.cell: it => {
+    if it.y == 0 {
+      align(center, strong(it))
+    } else {
+      align(left, it) 
+    }
+  }
+  { 
+    // Configurar párrafos
+    set align(left)
+    set par(
+      leading: 0.8em, 
+      first-line-indent: 0em, 
+      justify: false)
+    show par: set block(spacing: 0.8em)
+
+    set list(spacing: 0.8em)
+
+    tabla
+  }
+}
 
 #let configurar_texto_base(config: none, doc) = {
   // Configurar Idioma
@@ -105,7 +135,7 @@
   }
 
   // Configurar Cuerpo de Texto
-  set text(size: config.fonts.base_size, font: config.fonts.body)
+  set text(font: config.fonts.body, size: config.fonts.base_size)
 
   // Configurar párrafos
   set align(left)
@@ -114,7 +144,14 @@
     first-line-indent: config.paragraph.first_line_indent, 
     justify: false)
   show par: set block(spacing: config.paragraph.line_spacing)
+
+  // Configurar texto de código en línea con el texto
+  show raw: set text(font: config.fonts.mono, size: config.fonts.base_size * 0.9)
   
+  // Configurar listas
+  show list: set block(spacing: config.paragraph.line_spacing)
+  show enum: set block(spacing: config.paragraph.line_spacing)
+
   //show ref: it => obtener_suplemento(it)
 
   doc
@@ -228,6 +265,9 @@
   // Configurar figuras
   show figure: it => [#configurar_figuras(config: config, it)]
 
+  // Configurar tablas
+  show table: it => [#configurar_tablas_base(config: config, it)]
+
   // Mostrar las tablas de contenidos
   if toc == true {
 
@@ -241,18 +281,18 @@
     
     // Mostrar Lista de Figuras 
     locate(loc => {
-      if query(figure.where(kind: image), loc).len() > 0 {
+      if query(figure.where(kind: "quarto-float-fig"), loc).len() > 0 {
         heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Lista de Figuras")
-        outline(title:"", target: figure.where(kind: image),)
+        outline(title:"", target: figure.where(kind: "quarto-float-fig"),)
         pagebreak()
       }
     })
 
     // Mostrar Lista de Tablas 
     locate(loc => {
-      if query(figure.where(kind: table), loc).len() > 0 {
+      if query(figure.where(kind: "quarto-float-tbl"), loc).len() > 0 {
         heading(level: 1, numbering: none, outlined: false, bookmarked: true, "Lista de Tablas")
-        outline(title:"", target: figure.where(kind: table),)
+        outline(title:"", target: figure.where(kind: "quarto-float-tbl"),)
         pagebreak()
       }
     })
@@ -272,10 +312,14 @@
       header: [#show: encabezado(config: config)[]]
     )
 
+    // Configurar texto
     show: doc => configurar_texto_cuerpo(config: config, doc)
     
     // Configurar figuras
     show figure: it => [#configurar_figuras(config: config, it)]
+
+    // Configurar tablas
+    show table: it => [#configurar_tablas_base(config: config, it)]
 
     doc
   }
@@ -291,34 +335,22 @@
       header: [#show: encabezado(config: config)[]]
     )
 
-    // Idioma
-    set text(lang: config.text.lang, region: config.text.region)
-
-    // Configurar Títulos
-    // ? counter(heading).display()
-    // #show heading: underline.with(stroke: 2pt)
-    show heading: set text(size: config.fonts.base_size * 1.5, font: config.fonts.headings)
-    set heading(numbering: "1.1.")  
-    show heading: set align(left)
-
-    // Nivel 1
-    show heading.where(level: 1): it => {
-      set align(center)
-      set text(fill: black)
-      it
-    }
-
-    // Configurar párrafos
-    set align(left)
-    set par(justify: false)
+    // Configurar texto
+    show: doc => configurar_texto_cuerpo(config: config, doc)
     
     // Configurar figuras
     show figure: it => [#configurar_figuras(config: config, it)]
+
+    // Configurar tablas
+    show table: it => [#configurar_tablas_base(config: config, it)]
+
+    pagebreak()
 
     doc
 
     // Bibliografía
     if bibliography-file != none {
+      pagebreak()
       set par(justify: false, first-line-indent: 0cm)
       bibliography(bibliography-file, full: true, style: "american-psychological-association")
     }
