@@ -1,0 +1,334 @@
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage[titles]{tocloft}
+\usepackage{xcolor}
+\usepackage{etoolbox}
+
+% ==========================================
+% FONTS EMBEDDING CONFIGURATION
+% ==========================================
+\usepackage{luacode}
+\begin{luacode}
+  local function embedfull(tfmdata)
+    tfmdata.embedding = "full"
+  end
+  luatexbase.add_to_callback("luaotfload.patch_font", embedfull, "embedfull")
+\end{luacode}
+
+% ==========================================
+% LINE SPACING CONFIGURATION (APA 7th)
+% ==========================================
+% Main text: double spacing (200%)
+\doublespacing
+
+% Mono text: 1.2x spacing (120%)
+\AtBeginEnvironment{lstlisting}{\setstretch{1.2}}
+\AtBeginEnvironment{verbatim}{\setstretch{1.2}}
+\AtBeginEnvironment{Shaded}{\setstretch{1.2}}
+
+% ==========================================
+% HYPERLINK CONFIGURATION
+% ==========================================
+% Black links without underline (APA compliant)
+\usepackage[
+  hidelinks,
+  breaklinks=true,
+  colorlinks=false,
+  bookmarks=true,
+  bookmarksopen=false,
+  linktoc=all
+]{hyperref}
+
+% Override link colors to black (redundant but ensures compliance)
+\hypersetup{
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  filecolor=black
+}
+
+% ==========================================
+% HEADER AND FOOTER CONFIGURATION
+% ==========================================
+% Setup fancyhdr for running header with short title and page number
+\pagestyle{fancy}
+\fancyhf{} % Clear default headers/footers
+
+% Right side: page number
+\fancyhead[R]{\thepage}
+% Left side: see before-body.tex for short title in the page header
+
+
+% Set header height and line
+\setlength{\headheight}{0.5in}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ==========================================
+% FIRST PAGE (TITLE PAGE) - NO PAGE NUMBER
+% ==========================================
+\fancypagestyle{empty}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+% Apply 'empty' style to first page automatically
+\AtBeginDocument{%
+  \thispagestyle{empty}%
+}
+
+% ==========================================
+% TABLE OF CONTENTS FORMATTING
+% ==========================================
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+
+% ==========================================
+% FIGURE CAPTIONS (APA 7th STYLE)
+% ==========================================
+\usepackage[
+  labelsep=newline,
+  justification=justified,
+  singlelinecheck=false,
+  font=small,
+  labelfont=bf,
+  textfont=it,
+  format=plain
+]{caption}
+
+% Create custom format for figures with vertical space between label and title
+% This adds 0.2em of space between "Figura 1" and the title text
+\DeclareCaptionFormat{apa7figure}{#1\\[0.8em]#3}
+
+% APA 7th Figure Format:
+% Figura 1 (bold)
+% [vertical space]
+% Figure title in italics
+% [image]
+% Nota. Optional note text (within same figure environment)
+\captionsetup[figure]{
+  name=Figura,
+  labelsep=none,
+  justification=justified,
+  singlelinecheck=false,
+  labelfont=bf,
+  textfont=it,
+  format=apa7figure,
+  position=top
+}
+
+% Spanish language for figures
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+
+% ==========================================
+% TABLE CAPTIONS (APA 7th STYLE)
+% ==========================================
+% APA 7th: Table title in italics, on separate line from label, above the table
+\captionsetup[table]{
+  name=Tabla,
+  position=top,
+  labelsep=newline,
+  justification=justified,
+  singlelinecheck=false,
+  labelfont=bf,
+  textfont=it,
+  format=plain
+}
+
+% ==========================================
+% FIGURE ENVIRONMENT CUSTOMIZATION (APA 7th)
+% ==========================================
+% Customize spacing around figures to comply with APA 7th edition
+\setlength{\abovecaptionskip}{1.0em}
+\setlength{\belowcaptionskip}{0.5em}
+
+% Note: Figure positioning (H - here) is controlled by the 'fig-pos' option 
+% in _extension.yml configuration, which applies to all Quarto-generated figures.
+
+% Custom command to add figure/table notes within the environment (APA 7th)
+% This keeps the note together with the figure/table, preventing page breaks
+% Usage: After \includegraphics, use: \figurenote{Note text}
+\newcommand{\figurenote}[1]{%
+  \vspace{6pt}%
+  \par\raggedright\small\textit{Nota.~}#1%
+}
+
+% Alternative: For tables, use the same command
+\newcommand{\tablenote}[1]{%
+  \vspace{6pt}%
+  \par\raggedright\small\textit{Nota.~}#1%
+}
+
+% ==========================================
+% SOURCE CODE LISTINGS CONFIGURATION
+% ==========================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebackground}{rgb}{0.95,0.95,0.95}
+\definecolor{codenumber}{rgb}{0.5,0.5,0.5}
+\definecolor{codestring}{rgb}{0.6,0.1,0.1}
+\definecolor{codecomment}{rgb}{0.4,0.4,0.4}
+\definecolor{codekeyword}{rgb}{0,0,0.8}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebackground},
+  breaklines=true,
+  breakatwhitespace=true,
+  captionpos=b,
+  frame=single,
+  frameround=fttt,
+  framesep=8pt,
+  numbers=left,
+  numberstyle=\tiny\color{codenumber},
+  numbersep=5pt,
+  showstringspaces=false,
+  stringstyle=\color{codestring},
+  commentstyle=\color{codecomment},
+  keywordstyle=\color{codekeyword}\bfseries,
+  columns=flexible,
+  keepspaces=true,
+  aboveskip=1em,
+  belowskip=1em,
+  abovecaptionskip=0.5em,
+  belowcaptionskip=0.5em
+}
+
+% Format: "Listado 1. Title text"
+\renewcommand{\lstlistingname}{Listado}
+\renewcommand{\lstlistlistingname}{Lista de Listados de Código}
+
+\captionsetup[lstlisting]{
+  labelsep=period,
+  justification=justified,
+  singlelinecheck=false,
+  labelfont=bf,
+  textfont=normalfont,
+  font=small,
+  skip=0.5em
+}
+
+% ==========================================
+% EQUATIONS CONFIGURATION
+% ==========================================
+% amsmath: Professional equation typesetting and multi-line equation support
+% amssymb: Extended mathematical symbols and operators
+% amsthm: Theorem and proof environments
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% Number equations by section (APA style)
+% Example: Section 1 equations are numbered 1.1, 1.2, 1.3, etc.
+\numberwithin{equation}{section}
+
+% ==========================================
+% LIST OF EQUATIONS (OPTIONAL)
+% ==========================================
+% Controls whether a "List of Equations" appears in the front matter.
+% This is controlled by the 'loe' setting in your Quarto format configuration.
+% By default, loe: true (list is created). Set loe: false to disable.
+%
+% USAGE INSTRUCTIONS FOR USERS:
+% =============================
+% To add an equation to the "List of Equations", use the \myequations{} command.
+% This command should be used AFTER the equation environment.
+%
+% Example 1: Simple equation with description
+% ============================================
+% \begin{equation}
+%   E = mc^2
+% \end{equation}
+% \myequations{Einstein's mass-energy equivalence}
+%
+% Example 2: Equation with label (for cross-references)
+% ======================================================
+% \begin{equation}
+%   F = ma \label{eq:newtons-second-law}
+% \end{equation}
+% \myequations{Newton's Second Law of Motion}
+%
+% Later in text: Refer to it with \ref{eq:newtons-second-law}
+%
+% Example 3: Multi-line equations
+% ===============================
+% \begin{align}
+%   y &= mx + b \\
+%   0 &= mx + b - y \label{eq:line-form}
+% \end{align}
+% \myequations{Linear equation in slope-intercept form}
+%
+% PROFESSIONAL GUIDELINES:
+% ========================
+% - Only list IMPORTANT or KEY equations in the document
+% - All labeled equations can be referenced using \ref{label}
+% - The List of Equations only includes entries you explicitly add with \myequations{}
+% - This follows APA 7th edition best practices (not all equations are listed)
+% - Ensure descriptions are concise and meaningful (max 1-2 lines)
+
+% Setup the list command using tocloft package
+\newcommand{\listequationsname}{Lista de Ecuaciones}
+\newlistof{myequations}{loe}{\listequationsname}
+
+% Define command for users to call after an equation
+% Syntax: \myequations{Description of the equation}
+\newcommand{\myequations}[1]{%
+  \addcontentsline{loe}{myequations}{\protect\numberline{\theequation}#1}\par}
+
+% Formatting for the list of equations entries
+\setlength{\cftmyequationsindent}{0em}       % No indentation for equation entries
+\setlength{\cftmyequationsnumwidth}{3em}     % Space for equation numbering
+
+% ==========================================
+% SECTION HEADING FORMATTING
+% ==========================================
+% APA 7th: Left-aligned, bold, centered (for Level 1), etc.
+\usepackage{titlesec}
+
+% Level 1: Centered, Bold, Capitalized
+\titleformat{\section}
+  {\normalfont\normalsize\bfseries\centering}
+  {\thesection.~}
+  {0em}
+  {}[]
+
+% Level 2: Left-aligned, Bold, Capitalized
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection.~}
+  {0em}
+  {}[]
+
+% Level 3: Left-aligned, Bold Italic
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\itshape}
+  {\thesubsubsection.~}
+  {0em}
+  {}[]
+
+% Spacing after section headings
+\titlespacing*{\section}{0pt}{*3}{*1}
+\titlespacing*{\subsection}{0pt}{*3}{*1}
+\titlespacing*{\subsubsection}{0pt}{*3}{*1}
+
+% ==========================================
+% BLOCKQUOTE FORMATTING
+% ==========================================
+% Note: Blockquote formatting is handled by Pandoc's built-in quoting package
+% No additional customization needed for APA 7th compliance
+
+% ==========================================
+% FOOTNOTE/ENDNOTE FORMATTING
+% ==========================================
+% Single spacing for footnotes
+\let\oldfootnote\footnote
+\renewcommand{\footnote}[1]{%
+  \oldfootnote{\setstretch{1.0}\small #1}%
+}

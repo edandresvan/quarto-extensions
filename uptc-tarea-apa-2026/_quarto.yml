@@ -1,0 +1,18 @@
+project:
+  type: manuscript
+  output-dir: _output
+
+manuscript:
+  article: documento.qmd
+
+title: "Your Assignment Title"
+subtitle: "Subject Name"
+short-title: "Assignment Short Title"
+
+format:
+  uptc-tarea-apa-2026-pdf: default
+  uptc-tarea-apa-2026-docx: default  
+  uptc-tarea-apa-2026-html: default
+
+bibliography: references.bib
+

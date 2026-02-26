@@ -1,0 +1,205 @@
+/*-- scss:defaults --*/
+
+// Color scheme - customize these!
+$primary: #0066cc;
+$secondary: #6c757d;
+$body-bg: #ffffff;
+$body-color: #212529;
+
+// Typography
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace: "Courier New", Courier, monospace;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+
+// Headings
+$headings-font-weight: 600;
+$headings-color: $primary;
+
+// Links
+$link-color: $primary;
+$link-hover-color: darken($primary, 15%);
+
+// Code blocks
+$code-bg: #f8f9fa;
+$code-color: #e83e8c;
+
+/*-- scss:rules --*/
+
+// Document title
+.title {
+  font-size: 2.5em;
+  color: $primary;
+  margin-bottom: 0.5em;
+}
+
+.subtitle {
+  font-size: 1.5em;
+  color: $secondary;
+  margin-bottom: 2em;
+}
+
+// Author info block
+.quarto-title-meta {
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: #f8f9fa;
+  border-left: 4px solid $primary;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  color: $headings-color;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+h1 {
+  border-bottom: 2px solid $primary;
+  padding-bottom: 0.3em;
+}
+
+// Table of contents
+#TOC {
+  border: 1px solid #dee2e6;
+  padding: 1em;
+  border-radius: 0.25rem;
+  background-color: #f8f9fa;
+}
+
+#TOC ul {
+  list-style-type: none;
+}
+
+#TOC a {
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Code blocks
+pre {
+  background-color: $code-bg;
+  border-left: 3px solid $primary;
+  padding: 1em;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+}
+
+code {
+  color: $code-color;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+pre code {
+  color: inherit;
+  background-color: transparent;
+  padding: 0;
+}
+
+// Tables
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+th, td {
+  padding: 0.75em;
+  border: 1px solid #dee2e6;
+}
+
+th {
+  background-color: $primary;
+  color: white;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+// Figures
+figure {
+  margin: 1.5em 0;
+  text-align: center;
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  figcaption {
+    margin-top: 0.5em;
+    font-style: italic;
+    color: $secondary;
+  }
+}
+
+// Blockquotes
+blockquote {
+  border-left: 4px solid $primary;
+  padding-left: 1em;
+  margin-left: 0;
+  color: $secondary;
+  font-style: italic;
+}
+
+// Page breaks (for print)
+@media print {
+  .pagebreak {
+    page-break-before: always;
+  }
+}
+
+// Callout boxes (if using Quarto callouts)
+.callout {
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 0.25rem;
+  border-left: 4px solid;
+  
+  &.callout-note {
+    background-color: #e7f3ff;
+    border-left-color: #0066cc;
+  }
+  
+  &.callout-warning {
+    background-color: #fff4e6;
+    border-left-color: #ff9800;
+  }
+  
+  &.callout-important {
+    background-color: #ffe6e6;
+    border-left-color: #f44336;
+  }
+  
+  &.callout-tip {
+    background-color: #e8f5e9;
+    border-left-color: #4caf50;
+  }
+}
+
+// Abstract
+.abstract {
+  background-color: #f8f9fa;
+  padding: 1.5em;
+  margin: 2em 0;
+  border-radius: 0.25rem;
+  border: 1px solid #dee2e6;
+  
+  .abstract-title {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+    color: $primary;
+  }
+}

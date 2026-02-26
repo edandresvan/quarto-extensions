@@ -1,0 +1,142 @@
+title: UPTC Tarea APA 2026
+author: UPTC Faculty and Students
+version: 1.0.0
+description: |
+  A comprehensive Quarto extension for creating academic assignments in APA 7th edition format 
+  with full Spanish language support, designed specifically for UPTC students. Features include 
+  professional headers, page numbering, fully APA 7th-compliant figure/table/code formatting
+  (bold figure numbers with italicized titles, proper spacing and positioning), 
+  comprehensive front matter organization, and extensive documentation.
+quarto-required: ">=1.4.0"
+logo: logo-uptc.png
+
+contributes:
+  formats:
+    common:
+      # Table of Contents
+      toc: true
+      toc-depth: 4
+      
+      # Section Numbering
+      number-sections: true
+      number-offset: 0
+      
+      # Cross-References
+      link-citations: true
+      fig-cap-location: top
+      
+    pdf:
+      # ================================================
+      # FRONT MATTER OPTIONS
+      # ================================================
+      # Control which lists appear in the front matter
+      toc: true     # Table of Contents
+      lof: true     # List of Figures
+      lot: true     # List of Tables
+      lol: true     # List of Listings (source code)
+      loe: true     # List of Equations
+      
+      # Document Class and Paper Size
+      documentclass: article
+      papersize: letter
+      
+      # ================================================
+      # FONT CONFIGURATION
+      # ================================================
+      # Main font: 11pt (APA 7th standard) with double spacing
+      mainfont: "Calibri"
+      mainfontoptions:
+        - fontsize=11pt
+        - Ligatures=NoCommon
+      
+      # Code/Monospace font: 10pt with 120% line spacing (readable in code)
+      monofont: "Courier New"
+      monofontoptions:
+        - fontsize=10pt
+        - Ligatures=NoCommon
+      
+      # ================================================
+      # PAGE MARGINS AND GEOMETRY
+      # ================================================
+      # APA 7th: 1 inch margins on all sides
+      geometry:
+        - margin=1in           # All margins: 1 inch
+        - headheight=0.5in     # Space for running header
+      
+      # ================================================
+      # FIGURE AND CODE POSITIONING
+      # ================================================
+      fig-pos: 'H'            # Here (not floating)
+      
+      # ================================================
+      # HYPERLINK AND REFERENCE CONFIGURATION
+      # ================================================
+      # Black links without underlines (APA compliant)
+      reference-location: block
+      hyperrefoptions:
+        - hidelinks
+      link-citations: true
+      colorlinks: false
+      
+      # ================================================
+      # OUTPUT AND DEBUGGING
+      # ================================================
+      keep-tex: false         # Set to true to debug LaTeX
+      dpi: 300                # High quality for print
+      
+      # ================================================
+      # CUSTOM LaTeX INCLUDES AND PARTIALS
+      # ================================================
+      include-in-header:
+        - preamble.tex        # Main LaTeX configuration
+        
+      template-partials:
+        - before-body.tex     # Title page template
+        - toc.tex             # Front matter (TOC, lists)
+
+      # ================================================
+      # RESOURCES 
+      # ================================================
+      format-resources: 
+        - logo-uptc.png
+        
+    # HTML Format (optional, for web viewing)
+    html:
+      # ================================================
+      # FRONT MATTER OPTIONS
+      # ================================================
+      # Control which lists appear (HTML generates these automatically)
+      toc: true     # Table of Contents
+      lof: true     # List of Figures
+      lot: true     # List of Tables
+      lol: true     # List of Listings
+      loe: true     # List of Equations
+      
+      theme: 
+        - cosmo
+      toc-depth: 4
+      toc-location: left
+      number-sections: true
+      number-offset: 0
+      code-fold: false
+      code-tools: true
+      smooth-scroll: true
+      link-external-newwindow: true
+      html-math-method: mathjax
+
+    # DOCX Format (optional, for editing in Word)
+    docx:
+      # ================================================
+      # FRONT MATTER OPTIONS
+      # ================================================
+      # Control which lists appear (DOCX generates these automatically)
+      toc: true     # Table of Contents
+      lof: true     # List of Figures
+      lot: true     # List of Tables
+      lol: true     # List of Listings
+      loe: true     # List of Equations
+      
+      toc-depth: 4
+      number-sections: true
+      number-offset: 0
+      fig-dpi: 300

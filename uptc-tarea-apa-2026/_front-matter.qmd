@@ -1,0 +1,36 @@
+
+::: {.content-visible when-format="docx"}
+# Front Page {.unnumbered .unlisted}
+
+**`r rmarkdown::metadata$title`**
+
+`r rmarkdown::metadata$subtitle`
+
+---
+
+**Student(s):**  
+`r paste(sapply(rmarkdown::metadata$author, function(x) x$name), collapse = ", ")`
+
+**Professor:**  
+`r rmarkdown::metadata$professor`
+
+**University:** `r rmarkdown::metadata$university`  
+**Faculty:** `r rmarkdown::metadata$author[[1]]$affiliation`  
+**School:** `r rmarkdown::metadata$school`
+
+**Year:** `r format(Sys.Date(), "%Y")`
+
+{{< pagebreak >}}
+:::
+
+::: {.content-visible when-format="html"}
+## Document Information {.unnumbered}
+
+**Students:** `r paste(sapply(rmarkdown::metadata$author, function(x) x$name), collapse = ", ")`
+
+**Professor:** `r rmarkdown::metadata$professor`
+
+**Institution:** `r rmarkdown::metadata$university` - `r rmarkdown::metadata$author[[1]]$affiliation`
+
+**School:** `r rmarkdown::metadata$school`
+:::

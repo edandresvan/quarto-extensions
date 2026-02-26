@@ -1,0 +1,38 @@
+---
+title: "Your Assignment Title"
+subtitle: "Subject Name"
+author:
+  - name: "John Waltz"
+    email: "jw@email.com"
+  - name: "Sandy Metz"
+    email: "smt@gt.com"
+faculty: "Facultad"
+professor: 
+  - name: "Martin Blu"
+  - name: "Sarah Noem"
+university: "Universidad Pedagógica y Tecnológica de Colombia"
+school: "Escuela"
+date: today
+logo: "logo-uptc.png"
+lang: es
+---
+
+
+<!-- Introducción -->
+{{< include introduccion.qmd >}}
+
+<!-- Secciones del contenido -->
+{{< include s1-seccion-1/s1-seccion-1.qmd >}}
+{{< include s2-seccion-2/s2-seccion-2.qmd >}}
+
+<!-- Conclusiones -->
+{{< include conclusiones.qmd >}}
+
+<!-- Apéndices -->
+{{< include apendice-a.qmd >}}
+
+<!-- Referencias o Bibliografía -->
+# Referencias {.unnumbered}
+
+::: {#refs}
+:::

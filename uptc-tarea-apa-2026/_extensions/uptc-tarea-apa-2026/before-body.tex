@@ -1,0 +1,109 @@
+% Left side: short title (you can customize this in YAML as 'short-title')
+% If no short-title is defined, it will use a default
+\fancyhead[L]{\textit{\small $if(short-title)$$short-title$$endif$}}
+
+% Start the title page environment - no page number
+
+\begin{titlepage}
+\thispagestyle{empty}  % Explicitly remove page number from title page
+\centering
+
+\vspace*{0.8cm}
+
+{\LARGE\bfseries $title$\\}
+
+$if(subtitle)$
+\vspace{0.4cm}
+{\large $subtitle$\\}
+$endif$
+
+\vspace{1.2cm}
+
+{\large
+\textbf{Estudiantes:}\\
+$for(by-author)$
+$by-author.name.literal$\\
+$if(by-author.email)$
+\textit{$by-author.email$}\\
+$endif$
+$for(by-author.affiliations)$
+$it.name$\\
+$endfor$
+\vspace{0.2cm}
+$endfor$
+}
+
+\vspace{0.8cm}
+
+$if(professor)$
+{\large
+\textbf{Docentes:}\\
+$for(professor)$
+$it.name$\\
+$if(it.email)$
+\textit{$it.email$}\\
+$endif$
+$for(it.affiliations)$
+$it.name$\\
+$endfor$
+\vspace{0.2cm}
+$endfor$
+}
+$endif$
+
+% Subject
+$if(subject)$
+\vspace{0.6cm}
+{\large
+\textbf{Asignatura:}\\
+$subject$\\
+}
+$endif$
+
+\vfill
+
+% Logo and University Info
+$if(logo)$
+\vspace{0.5cm}
+\includegraphics[height=3.0cm]{$logo$}\\
+\vspace{0.4cm}
+$endif$
+
+% University
+$if(university)$
+{\large $university$\\}
+$endif$
+% Faculty
+$if(faculty)$
+$faculty$\\
+$endif$
+% School
+$if(school)$
+$school$\\
+$endif$
+% Program
+$if(program)$
+$program$\\
+$endif$
+% City
+$if(city)$
+$city$\\
+$endif$
+
+\vspace{0.4cm}
+
+% Date
+$if(date)$
+$date$
+$endif$
+
+\end{titlepage}
+
+% Reset page numbering to Arabic numerals, starting from page 2
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+
+

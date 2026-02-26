@@ -1,0 +1,29 @@
+% Front matter lists - these appear after title page
+% All of these are conditional and can be disabled via format options
+
+$if(toc)$
+\tableofcontents
+\clearpage
+$endif$
+
+$if(lof)$
+\listoffigures
+\clearpage
+$endif$
+
+$if(lot)$
+\listoftables
+\clearpage
+$endif$
+
+$if(lol)$
+% List of source code listings (requires listings or minted package)
+\lstlistoflistings
+\clearpage
+$endif$
+
+$if(loe)$
+% List of equations (uses custom setup defined in preamble.tex)
+\listofmyequations
+\clearpage
+$endif$

@@ -1,0 +1,26 @@
+% Custom LaTeX preamble for equation lists
+% Add this to your extension's _extension.yml in the include-in-header section
+
+% Package for creating list of equations
+\usepackage{tocloft}
+
+% Define new list of equations
+\newcommand{\listequationsname}{Lista de Ecuaciones}
+\newlistof{myequations}{loe}{\listequationsname}
+
+% Command to add equation to list
+\newcommand{\myequations}[1]{%
+  \addcontentsline{loe}{myequations}{\protect\numberline{\theequation}#1}\par}
+
+% Formatting for list of equations
+\setlength{\cftmyequationsindent}{0em}
+\setlength{\cftmyequationsnumwidth}{3em}
+
+% Optional: Change equation numbering format
+% \renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+% Example usage in your document:
+% $$
+% E = mc^2
+% $$ {#eq-einstein}
+% \myequations{Ecuación de Einstein para energía-masa}

@@ -1,0 +1,55 @@
+% ==========================================
+% CUSTOM HEADER CONFIGURATION
+% ==========================================
+% The short title for headers is pulled from YAML variable: short-title
+% Usage in your document's YAML header:
+%
+% ---
+% title: "Full Title of Your Paper"
+% short-title: "Short Title"  # This appears in the header
+% subtitle: "Optional Subtitle"
+% date: "2026-02-25"
+% by-author:
+%   - name:
+%       literal: "Student Name"
+%       given: "Student"
+%       family: "Name"
+%     email: "student@gmail.com"
+%     affiliations:
+%       - name: "UPTC - School of Engineering"
+% professor:
+%   - name: "Professor Name"
+%     email: "professor@uptc.edu.co"
+% university: "Universidad Pedagógica y Tecnológica de Colombia"
+% faculty: "Facultad de Ingeniería"
+% school: "Programa de Ingeniería..."
+% ---
+%
+% The header will display:
+%   [Short Title]                              [Page Number]
+%
+% ==========================================
+% FIGURE FORMATTING (APA 7th EDITION)
+% ==========================================
+% This extension now fully supports APA 7th edition figure formatting.
+%
+% Format for figures:
+%   Figura 1
+%   Figure title in italics
+%   [image]
+%   Nota. Optional note text
+%
+% Basic Markdown usage:
+%   ![Figure title](path/image.png){#fig-identifier width=95%}
+%
+% For figures with notes, use raw LaTeX:
+%   \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.95\textwidth]{image.png}
+%   \caption{Figure title}
+%   \figurenote{Note text}
+%   \end{figure}
+%
+% See FIGURES-APA7-GUIDE.md for complete documentation.
+%
+% More header customization options available in preamble.tex
